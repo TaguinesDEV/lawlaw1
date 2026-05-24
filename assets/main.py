@@ -1352,9 +1352,9 @@ async def main():
                             else:
                                 password_input += event.unicode
 
-                if event.type in (pygame.MOUSEBUTTONDOWN, pygame.FINGERDOWN):
+                if event.type == pygame.MOUSEBUTTONDOWN or (hasattr(pygame, 'FINGERDOWN') and event.type == pygame.FINGERDOWN):
 
-                    if event.type == pygame.FINGERDOWN:
+                    if hasattr(pygame, 'FINGERDOWN') and event.type == pygame.FINGERDOWN:
                         mouse = (int(event.x * GAME_WIDTH), int(event.y * GAME_HEIGHT))
                     else:
                         mouse = pygame.mouse.get_pos()

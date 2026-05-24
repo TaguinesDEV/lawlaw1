@@ -303,13 +303,18 @@ function show_infobox() {
     <canvas class="emscripten" id="canvas"
 width="1px"
 height="1px"
-    oncontextmenu="event.preventDefault()" tabindex=1>
+    oncontextmenu="event.preventDefault()"
+    onpointerdown="this.focus()"
+    ontouchstart="this.focus()"
+    tabindex="0"
+    style="touch-action: manipulation; outline: none;"
+    >
     </canvas>
 
     <canvas class="emscripten" id="canvas3d"
 width="1280px"
 height="720px"
-    oncontextmenu="event.preventDefault()" tabindex=1 hidden>
+    oncontextmenu="event.preventDefault()" tabindex="0" hidden>
     </canvas>
 
     <div id="infobox">Loading, please wait ...</div>
@@ -387,6 +392,13 @@ frameborder="1"
         transfer.hidden = debug_hidden
         info.hidden = debug_hidden
         box.hidden =  debug_hidden
+
+        const canvasEl = document.getElementById('canvas')
+        if (canvasEl) {
+            canvasEl.style.outline = 'none'
+            canvasEl.addEventListener('pointerdown', () => canvasEl.focus())
+            canvasEl.addEventListener('touchstart', () => canvasEl.focus(), {passive: true})
+        }
 
         show_infobox()
     }
